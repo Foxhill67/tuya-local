@@ -1,0 +1,186 @@
+name: Pet water fountain
+products:
+  - id: lwvkmakxmkvwjnf6
+    manufacturer: Xenon Smart
+    model: X8650
+
+entities:
+  - entity: switch
+    name: Power
+    dps:
+      - id: 1
+        type: boolean
+        name: switch
+
+  - entity: select
+    name: Mode
+    dps:
+      - id: 4  # normal / smart / resuming (resuming value unconfirmed)
+        type: string
+        name: option
+        mapping:
+          - dps_val: normal
+            value: Normal
+          - dps_val: smart
+            value: Smart
+          - dps_val: resuming
+            value: Resuming
+
+  - entity: sensor
+    name: Status
+    category: diagnostic
+    dps:
+      - id: 5  # work / pause / sleep - live operating state
+        type: string
+        name: sensor
+
+  - entity: number
+    name: Flow time
+    category: config
+    dps:
+      - id: 6  # smart mode: minutes pump runs
+        type: integer
+        name: value
+        unit: min
+        range: {min: 1, max: 30}
+
+  - entity: number
+    name: Intermittent time
+    category: config
+    dps:
+      - id: 7  # smart mode: minutes pump pauses between flows
+        type: integer
+        name: value
+        unit: min
+        range: {min: 1, max: 30}
+
+  - entity: number
+    name: Filter life
+    category: config
+    dps:
+      - id: 8  # reminder interval, days
+        type: integer
+        name: value
+        unit: d
+        range: {min: 1, max: 60}
+
+  - entity: sensor
+    name: Filter life remaining
+    category: diagnostic
+    dps:
+      - id: 9  # counts down from id 8
+        type: integer
+        name: sensor
+        unit: d
+
+  - entity: number
+    name: Clean time
+    category: config
+    dps:
+      - id: 11  # reminder interval, days
+        type: integer
+        name: value
+        unit: d
+        range: {min: 1, max: 30}
+
+  - entity: sensor
+    name: Clean time remaining
+    category: diagnostic
+    dps:
+      - id: 12  # counts down from id 11
+        type: integer
+        name: sensor
+        unit: d
+
+  - entity: switch
+    name: Sleep
+    category: config
+    dps:
+      - id: 15
+        type: boolean
+        name: switch
+
+  - entity: number
+    name: Sleep start (min after midnight)
+    category: config
+    dps:
+      - id: 16  # e.g. 1380 = 23:00
+        type: integer
+        name: value
+        unit: min
+        range: {min: 0, max: 1439}
+
+  - entity: number
+    name: Sleep end (min after midnight)
+    category: config
+    dps:
+      - id: 17  # e.g. 360 = 06:00
+        type: integer
+        name: value
+        unit: min
+        range: {min: 0, max: 1439}
+
+  - entity: select
+    name: Time mode
+    category: config
+    dps:
+      - id: 25  # 12h / 24h display format, independent of sleep schedule
+        type: string
+        name: option
+        mapping:
+          - dps_val: 12h
+            value: "12-hour"
+          - dps_val: 24h
+            value: "24-hour"
+
+  - entity: number
+    name: Time to resume work
+    category: config
+    dps:
+      - id: 2  # minutes before pump resumes after pausing
+        type: integer
+        name: value
+        unit: min
+        range: {min: 1, max: 60}
+
+  - entity: sensor
+    name: Time to resume work remaining
+    category: diagnostic
+    dps:
+      - id: 3  # counts down from id 2
+        type: integer
+        name: sensor
+        unit: min
+
+  - entity: number
+    name: Water flow
+    dps:
+      - id: 26  # pump output, % - confirmed range 60-100
+        type: integer
+        name: value
+        unit: "%"
+        range: {min: 60, max: 100}
+
+  - entity: switch
+    name: Push floating hair
+    category: config
+    dps:
+      - id: 20
+        type: boolean
+        name: switch
+
+  - entity: sensor
+    name: Pump speed
+    category: diagnostic
+    dps:
+      - id: 18  # seen value "high" - unconfirmed whether user-settable or what other values exist
+        type: string
+        name: sensor
+
+  - entity: sensor
+    name: Fault code
+    category: diagnostic
+    dps:
+      - id: 24  # seen only as 0 (no fault) so far
+        type: integer
+        name: sensor
